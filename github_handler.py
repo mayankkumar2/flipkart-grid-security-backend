@@ -74,6 +74,6 @@ def calc_repo_stats(repo_name: str):
                      repo.subscribers_count,
                      repo.watchers_count,
                      closed_issues_count,
-                     closed_issues_count/open_issues_count,
+                     0 if open_issues_count == 0 else closed_issues_count/open_issues_count,
                      popularity_index,
                      commits_count)
