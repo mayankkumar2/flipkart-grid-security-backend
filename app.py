@@ -3,6 +3,7 @@ from dataclasses import asdict
 from fastapi import FastAPI
 from pydantic import BaseModel
 from model import Model
+from security import find_vulneribilites
 
 app = FastAPI()
 
@@ -22,3 +23,8 @@ def read_root(repo: str):
     for k in d:
         r_dict[k] = m.get_percentile(k, d[k])
     return ReturnModel(data=data, similarity_score=sim,data_percentiles=r_dict)
+
+@app.get("/get_vulns")
+def read_vul(repo: str):
+    r = find_vulneribilites(repo)
+    return r
